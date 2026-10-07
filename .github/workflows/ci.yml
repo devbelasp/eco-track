@@ -1,6 +1,6 @@
 # CI - Integracao Continua
 # Roda a cada Pull Request para develop/main e tambem pode ser chamado por
-# outros workflows (o de deploy reutiliza este para garantir build + testes).
+# outros workflows (o de CD reutiliza este para garantir build + testes).
 name: CI
 
 on:
@@ -44,6 +44,8 @@ jobs:
     name: Build da imagem Docker
     runs-on: ubuntu-latest
     needs: build-and-test
+    # Apenas em Pull Request. No CD a imagem e construida e publicada pelo proprio CD.
+    if: github.event_name == 'pull_request'
     steps:
       - name: Baixar o codigo
         uses: actions/checkout@v4
