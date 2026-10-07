@@ -17,6 +17,29 @@ jobs:
   build-and-test:
     name: Build e testes
     runs-on: ubuntu-latest
+
+    # PostgreSQL real, usado pelos testes de integracao (mesmo banco dos ambientes)
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: ecotrack_test
+          POSTGRES_USER: ecotrack
+          POSTGRES_PASSWORD: ecotrack_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ecotrack -d ecotrack_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    # Os testes leem a conexao destas variaveis; sem elas (execucao local), usam H2
+    env:
+      TEST_DATABASE_URL: jdbc:postgresql://localhost:5432/ecotrack_test
+      TEST_DATABASE_USER: ecotrack
+      TEST_DATABASE_PWD: ecotrack_test
+
     steps:
       - name: Baixar o codigo
         uses: actions/checkout@v4
@@ -28,7 +51,8 @@ jobs:
           java-version: '21'
           cache: maven
 
-      # "verify" compila, roda os testes unitarios e de integracao e empacota o jar
+      # "verify" compila, roda os testes unitarios e de integracao (contra o PostgreSQL acima)
+      # e empacota o jar
       - name: Build e testes automatizados
         run: mvn -B verify
 
