@@ -32,7 +32,7 @@ collection:
               "empresaGeradora": "Empresa Verde Ltda",
               "categoriaResiduo": "PLASTICO",
               "pesoKg": 12.5,
-              "dataAgendamento": "2026-12-15"
+              "dataAgendamento": "2027-06-15"
             }
         headers:
           - name: Content-Type
@@ -98,7 +98,7 @@ collection:
               "empresaGeradora": "Metalurgica Vale Verde",
               "categoriaResiduo": "METAIS",
               "pesoKg": 1150.00,
-              "dataAgendamento": "2026-12-20"
+              "dataAgendamento": "2027-06-20"
             }
         headers:
           - name: Content-Type
@@ -189,7 +189,7 @@ environments:
         isPrivate: false
         sortKey: 2
       data:
-        base_url: "https://COLOQUE-A-URL-DE-STAGING-AQUI"
+        base_url: "https://ecotrack-stg-devbelasp-end5heexh0ejgvdj.eastus-01.azurewebsites.net"
     - name: Producao
       meta:
         id: env_f48ad127b2e347eebc4784aa4654542b
@@ -198,4 +198,4 @@ environments:
         isPrivate: false
         sortKey: 3
       data:
-        base_url: "https://COLOQUE-A-URL-DE-PRODUCAO-AQUI"
+        base_url: "https://ecotrack-prd-devbelasp-fqdxeghqhkfkdhbt.eastus-01.azurewebsites.net"
