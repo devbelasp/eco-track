@@ -1,0 +1,201 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: EcoTrack
+meta:
+  id: wrk_a8f52a20b2684f39ab6c92fa7ac8f085
+  created: 1791386805145
+  modified: 1791386805145
+  description: "Colecao do EcoTrack. Escolha o ambiente (Local, Staging ou Producao) no seletor de ambientes."
+collection:
+  - name: Coleta
+    meta:
+      id: fld_3e409423a8e5478cbe79c577291150ed
+      created: 1791386805145
+      modified: 1791386805145
+      sortKey: -3000
+      description: ""
+    children:
+      - url: "{{ _.base_url }}/api/residuos/agendamentos"
+        name: Agendar Nova Coleta
+        meta:
+          id: req_37959f62f8f74459ba6d9597d7d468dd
+          created: 1791386805145
+          modified: 1791386805145
+          isPrivate: false
+          description: "Cria um agendamento. A data precisa estar no presente ou futuro."
+          sortKey: -3000
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "empresaGeradora": "Empresa Verde Ltda",
+              "categoriaResiduo": "PLASTICO",
+              "pesoKg": 12.5,
+              "dataAgendamento": "2026-12-15"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/api/residuos/agendamentos?size=5&page=0"
+        name: Listar Coletas (paginado)
+        meta:
+          id: req_df5a7003fdfe4da3896f1a18b7ae0d64
+          created: 1791386805145
+          modified: 1791386805145
+          isPrivate: false
+          description: ""
+          sortKey: -2900
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/api/residuos/agendamentos/{{ _.agendamento_id }}"
+        name: Buscar Coleta por ID
+        meta:
+          id: req_89cc2f940fd64e5db5aae011139598e3
+          created: 1791386805145
+          modified: 1791386805145
+          isPrivate: false
+          description: "Troque agendamento_id no ambiente pelo ID retornado no POST."
+          sortKey: -2800
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/api/residuos/agendamentos/{{ _.agendamento_id }}"
+        name: Atualizar Coleta
+        meta:
+          id: req_4f6a71745f66457d85b5752996d3046c
+          created: 1791386805145
+          modified: 1791386805145
+          isPrivate: false
+          description: ""
+          sortKey: -2700
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "empresaGeradora": "Metalurgica Vale Verde",
+              "categoriaResiduo": "METAIS",
+              "pesoKg": 1150.00,
+              "dataAgendamento": "2026-12-20"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/api/residuos/agendamentos/{{ _.agendamento_id }}"
+        name: Cancelar Coleta
+        meta:
+          id: req_832148bdc5ac4c6c89aaec287b32f4cb
+          created: 1791386805145
+          modified: 1791386805145
+          isPrivate: false
+          description: ""
+          sortKey: -2600
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Saude
+    meta:
+      id: fld_01b65b3d60b645898bd1ef1c1e8667c6
+      created: 1791386805145
+      modified: 1791386805145
+      sortKey: -2000
+      description: ""
+    children:
+      - url: "{{ _.base_url }}/actuator/health"
+        name: Health Check
+        meta:
+          id: req_6054db13619940d0bfc42a49add95a28
+          created: 1791386805145
+          modified: 1791386805145
+          isPrivate: false
+          description: "Deve responder status UP."
+          sortKey: -2000
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_4b26ddeed5a24cfbb4f08d3e264e2ecd
+    created: 1791386805145
+    modified: 1791386805145
+environments:
+  name: Base Environment
+  meta:
+    id: env_5628fcf4959c435499dc205ea42b72bc
+    created: 1791386805145
+    modified: 1791386805145
+    isPrivate: false
+  data:
+    base_url: "http://localhost:8080"
+    agendamento_id: "1"
+  subEnvironments:
+    - name: Local
+      meta:
+        id: env_2526df9d2ae34e1aad62a87d0c48ed45
+        created: 1791386805145
+        modified: 1791386805145
+        isPrivate: false
+        sortKey: 1
+      data:
+        base_url: "http://localhost:8080"
+    - name: Staging
+      meta:
+        id: env_5f21820249be4d5eae9cb90bb227c77f
+        created: 1791386805145
+        modified: 1791386805145
+        isPrivate: false
+        sortKey: 2
+      data:
+        base_url: "https://COLOQUE-A-URL-DE-STAGING-AQUI"
+    - name: Producao
+      meta:
+        id: env_f48ad127b2e347eebc4784aa4654542b
+        created: 1791386805145
+        modified: 1791386805145
+        isPrivate: false
+        sortKey: 3
+      data:
+        base_url: "https://COLOQUE-A-URL-DE-PRODUCAO-AQUI"
